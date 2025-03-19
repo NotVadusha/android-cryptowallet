@@ -15,6 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 class FirstFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
+    private var count = 0
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -26,6 +27,15 @@ class FirstFragment : Fragment() {
     ): View {
 
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
+        
+        binding.buttonFirst.setOnClickListener {
+            updateCount(true)
+        }
+
+        binding.buttonSecond.setOnClickListener {
+            updateCount(false)
+        }
+
         return binding.root
 
     }
@@ -37,5 +47,14 @@ class FirstFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun updateCount(increment: Boolean) {
+        if (increment) {
+            count++
+        } else if (count > 0) {
+            count--
+        }
+        binding.textviewFirst.text = count.toString()
     }
 }

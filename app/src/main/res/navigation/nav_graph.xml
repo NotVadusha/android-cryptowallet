@@ -3,11 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/cryptoListFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.cryptowallet.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first"/>
+        android:id="@+id/cryptoListFragment"
+        android:name="com.example.cryptowallet.CryptoListFragment"
+        android:label="Cryptocurrencies"
+        tools:layout="@layout/fragment_crypto_list">
+        <action
+            android:id="@+id/action_cryptoListFragment_to_cryptoDetailFragment"
+            app:destination="@id/cryptoDetailFragment" />
+    </fragment>
+    
+    <fragment
+        android:id="@+id/cryptoDetailFragment"
+        android:name="com.example.cryptowallet.CryptoDetailFragment"
+        android:label="Crypto Details"
+        tools:layout="@layout/fragment_crypto_detail">
+        <argument
+            android:name="cryptoId"
+            app:argType="string" />
+        <argument
+            android:name="cryptoName"
+            app:argType="string" />
+        <argument
+            android:name="cryptoSymbol"
+            app:argType="string" />
+    </fragment>
 </navigation>

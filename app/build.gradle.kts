@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -14,6 +15,19 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        val coinMarketCapApiKey = rootProject.ext.properties["COINMARKETCAP_API_KEY"]?.toString()
+            ?: providers.gradleProperty("COINMARKETCAP_API_KEY").orNull
+            ?: System.getenv("COINMARKETCAP_API_KEY") 
+            ?: "\"MISSING_API_KEY\""
+        
+        val formattedApiKey = if (!coinMarketCapApiKey.startsWith("\"") && !coinMarketCapApiKey.endsWith("\"")) {
+            "\"$coinMarketCapApiKey\""
+        } else {
+            coinMarketCapApiKey
+        }
+        
+        buildConfigField("String", "COINMARKETCAP_API_KEY", formattedApiKey)
+        
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -35,6 +49,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -46,6 +61,18 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+    
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
+    
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -28,13 +28,13 @@ class CryptoListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         
         setupRecyclerView()
+        setupTrackAssetsButton()
     }
     
     private fun setupRecyclerView() {
         val cryptoAdapter = CryptoListAdapter(
             CryptoCurrencyList.availableCryptos
         ) { selectedCrypto ->
-            // Navigate to detail view with the selected crypto ID
             val action = CryptoListFragmentDirections.actionCryptoListFragmentToCryptoDetailFragment(
                 cryptoId = selectedCrypto.id,
                 cryptoName = selectedCrypto.name,
@@ -49,6 +49,13 @@ class CryptoListFragment : Fragment() {
         }
     }
 
+    private fun setupTrackAssetsButton() {
+        binding.buttonTrackAssets.setOnClickListener {
+            val action = CryptoListFragmentDirections.actionCryptoListFragmentToAssetsListFragment()
+            findNavController().navigate(action)
+        }
+    }
+    
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

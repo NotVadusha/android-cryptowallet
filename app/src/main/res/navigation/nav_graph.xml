@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_cryptoListFragment_to_cryptoDetailFragment"
             app:destination="@id/cryptoDetailFragment" />
+        <action
+            android:id="@+id/action_cryptoListFragment_to_assetsListFragment"
+            app:destination="@id/assetsListFragment" />
     </fragment>
     
     <fragment
@@ -30,4 +33,20 @@
             android:name="cryptoSymbol"
             app:argType="string" />
     </fragment>
+    
+    <fragment
+        android:id="@+id/assetsListFragment"
+        android:name="com.example.cryptowallet.AssetsListFragment"
+        android:label="Your Assets"
+        tools:layout="@layout/fragment_assets_list">
+        <action
+            android:id="@+id/action_assetsListFragment_to_assetFormFragment"
+            app:destination="@id/assetFormFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/assetFormFragment"
+        android:name="com.example.cryptowallet.AssetFormFragment"
+        android:label="Add Asset"
+        tools:layout="@layout/fragment_asset_form" />
 </navigation>

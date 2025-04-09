@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CryptoListFragment">
+    tools:context=".AssetsListFragment">
 
     <TextView
         android:id="@+id/textview_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Cryptocurrencies"
+        android:text="Your Assets"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,38 +19,46 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button_track_assets"
+        android:id="@+id/button_add_asset"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="8dp"
-        android:text="View Your Assets"
+        android:text="Add New Asset"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textview_title" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_crypto"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        android:clipToPadding="false"
-        android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_track_assets"
-        tools:itemCount="3"
-        tools:listitem="@layout/item_crypto_currency" />
+        app:layout_constraintTop_toBottomOf="@id/button_add_asset">
 
-    <ProgressBar
-        android:id="@+id/progressbar"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_assets"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:padding="8dp"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_asset" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <TextView
+        android:id="@+id/textview_no_assets"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="No assets added yet"
+        android:textSize="18sp"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/swipe_refresh"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/swipe_refresh" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

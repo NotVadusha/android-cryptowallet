@@ -1,5 +1,7 @@
 package com.example.cryptowallet
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -38,6 +40,7 @@ class CryptoDetailFragment : Fragment() {
     }
     
     private var autoUpdateJob: Job? = null
+    private var websiteUrl: String? = null
     
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -78,6 +81,11 @@ class CryptoDetailFragment : Fragment() {
             binding.textviewLastUpdated.text = "Last updated: $formattedDate"
         }
         
+        viewModel.websiteUrl.observe(viewLifecycleOwner) { url ->
+            websiteUrl = url
+            binding.textviewWebsite.visibility = if (url != null) View.VISIBLE else View.GONE
+        }
+        
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
             binding.textviewPrice.visibility = if (isLoading) View.GONE else View.VISIBLE
@@ -93,6 +101,12 @@ class CryptoDetailFragment : Fragment() {
     private fun setupListeners() {
         binding.buttonRefresh.setOnClickListener {
             viewModel.fetchCryptoPrice()
+        }
+        
+        binding.textviewWebsite.setOnClickListener {
+            websiteUrl?.let { url ->
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+            }
         }
     }
     

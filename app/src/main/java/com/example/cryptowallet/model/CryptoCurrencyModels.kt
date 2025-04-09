@@ -8,6 +8,11 @@ data class CryptoCurrencyResponse(
     val data: Map<String, CryptoCurrency>
 )
 
+data class CryptoMetadataResponse(
+    val status: Status,
+    val data: Map<String, CryptoMetadata>
+)
+
 data class Status(
     val timestamp: Date,
     @SerializedName("error_code")
@@ -42,6 +47,39 @@ data class CryptoCurrency(
     @SerializedName("last_updated")
     val lastUpdated: Date,
     val quote: Map<String, Quote>
+)
+
+data class CryptoMetadata(
+    val id: Int,
+    val name: String,
+    val symbol: String,
+    val slug: String,
+    val category: String,
+    val description: String,
+    @SerializedName("date_added")
+    val dateAdded: Date,
+    @SerializedName("date_launched")
+    val dateLaunched: Date?,
+    val tags: List<String>,
+    val urls: CryptoUrls,
+    val logo: String,
+    @SerializedName("is_hidden")
+    val isHidden: Int
+)
+
+data class CryptoUrls(
+    val website: List<String>,
+    val twitter: List<String>,
+    val reddit: List<String>,
+    @SerializedName("message_board")
+    val messageBoard: List<String>,
+    @SerializedName("source_code")
+    val sourceCode: List<String>,
+    val chat: List<String>,
+    val explorer: List<String>,
+    val facebook: List<String>,
+    val technical_doc: List<String>,
+    val announcement: List<String>
 )
 
 data class Quote(
